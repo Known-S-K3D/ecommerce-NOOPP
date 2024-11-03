@@ -3,10 +3,11 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import { Navbar, Nav, Form, FormControl, Button } from "react-bootstrap";
-import { FaUser } from "react-icons/fa"; // Removed FaShoppingCart import
+import { FaUser } from "react-icons/fa";
 import AddProduct from "./components/AddProduct";
 import EditProduct from "./components/EditProduct";
 import ViewProducts from "./components/ViewProducts";
+import Login from "./components/Login"; // Import your Login component
 import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
@@ -14,7 +15,6 @@ function App() {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    // Implement search functionality here or pass searchTerm to components as needed
     console.log("Searching for:", searchTerm);
   };
 
@@ -38,7 +38,7 @@ function App() {
             />
             <Button variant="outline-success" type="submit">Search</Button>
           </Form>
-          <Nav className="ml-auto"> {/* Use ml-auto to push the Nav items to the right */}
+          <Nav className="ml-auto">
             <Nav.Link as={Link} to="/login">
               <FaUser /> Login/Logout
             </Nav.Link>
@@ -50,6 +50,7 @@ function App() {
           <Route path="/" element={<ViewProducts />} />
           <Route path="/add" element={<AddProduct />} />
           <Route path="/edit/:id" element={<EditProduct />} />
+          <Route path="/login" element={<Login onLogin={() => {}} />} /> {/* Add this line for the login route */}
         </Routes>
       </div>
     </Router>
