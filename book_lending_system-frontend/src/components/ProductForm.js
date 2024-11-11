@@ -5,20 +5,20 @@ const ProductForm = ({ product, onSubmit }) => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
-  const [stock, setStock] = useState("");
+  const [quantity, setQuantity] = useState("");
 
   useEffect(() => {
     if (product) {
       setName(product.name);
       setDescription(product.description);
       setPrice(product.price);
-      setStock(product.stock);
+      setQuantity(product.quantity);
     }
   }, [product]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const productData = { name, description, price, stock };
+    const productData = { name, description, price, quantity };
     onSubmit(productData);
   };
 
@@ -49,12 +49,12 @@ const ProductForm = ({ product, onSubmit }) => {
               />
             </Form.Group>
 
-            <Form.Group controlId="stock">
-              <Form.Label>Stock:</Form.Label>
+            <Form.Group controlId="quantity">
+              <Form.Label>Quantity:</Form.Label>
               <Form.Control
                 type="number"
-                value={stock}
-                onChange={(e) => setStock(e.target.value)}
+                value={quantity}
+                onChange={(e) => setQuantity(e.target.value)}
                 required
               />
             </Form.Group>
