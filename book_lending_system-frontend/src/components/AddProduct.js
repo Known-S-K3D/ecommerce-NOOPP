@@ -26,6 +26,14 @@ function AddProduct() {
     setIsLoading(true);
     setError(null);
     setSuccess(false);
+
+    if (Number(price) < 1) {
+      setError("Price must be greater than or equal to 1.");
+      setIsLoading(false);
+      return;
+    }
+
+
     try {
       await axios.post("http://localhost:8000/api/products", {
         barcode,
