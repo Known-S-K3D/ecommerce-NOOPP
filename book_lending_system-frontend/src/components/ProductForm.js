@@ -1,5 +1,3 @@
-// src/components/ProductForm.js
-
 import React, { useState, useEffect } from "react";
 import { Form, Button, Container, Card } from "react-bootstrap";
 

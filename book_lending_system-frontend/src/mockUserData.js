@@ -1,23 +1,19 @@
 // src/mockUserData.js
-let users = [];
-
-export const registerUser = (user) => {
-    const existingUser = users.find(u => u.email === user.email);
-    if (existingUser) {
-        throw new Error('User already exists');
-    }
-    users.push(user);
-    return user; // Return the registered user
-};
-
-export const getUserByEmail = (email) => {
-    return users.find(u => u.email === email);
-};
+let mockUsers = []; // Store registered users in memory
 
 export const loginUser = (email, password) => {
-    const user = getUserByEmail(email);
-    if (!user || user.password !== password) {
-        throw new Error('Invalid email or password');
-    }
-    return user; // Return the user object if login is successful
+  const user = mockUsers.find(user => user.email === email && user.password === password);
+  if (!user) {
+    throw new Error("Invalid email or password.");
+  }
+  return user; // Return the user object if login is successful
+};
+
+export const registerUser = ({ name, email, password }) => {
+  if (mockUsers.find(user => user.email === email)) {
+    throw new Error("Email is already registered.");
+  }
+  const newUser = { name, email, password };
+  mockUsers.push(newUser); // Save new user to mockUsers array
+  return newUser; // Return the newly registered user
 };
