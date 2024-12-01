@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Table, Button, Form } from 'react-bootstrap';
+import { Link } from 'react-router-dom'; // For navigation to Edit page
 
 function ViewProducts() {
   const [products, setProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
 
+  // Fetch products from the backend API
   useEffect(() => {
     const fetchProducts = async () => {
       const response = await axios.get('http://localhost:8000/api/products');
@@ -14,6 +16,7 @@ function ViewProducts() {
     fetchProducts();
   }, []);
 
+  // Add product to cart
   const handleAddToCart = async (product) => {
     try {
       await axios.post('http://localhost:8000/cart/add', {
@@ -28,6 +31,18 @@ function ViewProducts() {
     }
   };
 
+  // Delete a product from the backend
+  const handleDeleteProduct = async (id) => {
+    try {
+      await axios.delete(`http://localhost:8000/api/products/${id}`);
+      // Remove product from the UI without a page reload
+      setProducts(products.filter((product) => product.id !== id));
+    } catch (error) {
+      console.error('Error deleting product:', error);
+    }
+  };
+
+  // Filter products based on the search term
   const filteredProducts = products.filter((product) =>
     product.description.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -35,6 +50,7 @@ function ViewProducts() {
   return (
     <div>
       <h2>Products</h2>
+      {/* Search bar */}
       <Form.Control
         type="text"
         placeholder="Search Products"
@@ -58,8 +74,19 @@ function ViewProducts() {
               <td>${Number(product.price).toFixed(2)}</td>
               <td>{product.quantity}</td>
               <td>
-                <Button onClick={() => handleAddToCart(product)} variant="success">
+                {/* Add to Cart button */}
+                <Button onClick={() => handleAddToCart(product)} variant="success" className="me-2">
                   Add to Cart
+                </Button>
+                {/* Edit button, linking to the edit page */}
+                <Link to={`/edit/${product.id}`}>
+                  <Button variant="primary" className="me-2">
+                    Edit
+                  </Button>
+                </Link>
+                {/* Delete button */}
+                <Button onClick={() => handleDeleteProduct(product.id)} variant="danger">
+                  Delete
                 </Button>
               </td>
             </tr>
