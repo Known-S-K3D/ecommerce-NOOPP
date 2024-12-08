@@ -7,6 +7,12 @@ use Illuminate\Support\Facades\Session;
 
 class CartController extends Controller
 {
+    public function index() {
+        // Fetch cart items from the database
+        $cartItems = Cart::all();
+        return response()->json($cartItems);
+    }
+    
     public function addToCart(Request $request)
     {
         $cart = Session::get('cart', []);

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import { getCartCount } from './api/cart'; // Import the getCartCount function
 
 function Cart() {
