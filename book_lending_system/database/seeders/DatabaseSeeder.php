@@ -14,9 +14,5 @@ class DatabaseSeeder extends Seeder
             ProductSeeder::class,
             // You can add more seeders here if needed
         ]);
-
-          // Call the UserSeeder
-          $this->call(UserSeeder::class);
-
     }
 }
