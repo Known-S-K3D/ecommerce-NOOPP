@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link, useNavigate } from 'react-router-dom';
 import { Navbar, Nav, Container, Card, Row, Col, Spinner, Button } from 'react-bootstrap';
@@ -9,18 +9,6 @@ import AdminDashboard from './components/Pages/AdminDashboard';
 import Store from './components/Pages/Store';
 import EditProduct from './components/Admin/EditProduct';
 import Cart from './components/Cart/Cart';
-=======
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
-import { Navbar, Nav, Container } from 'react-bootstrap';
-import { FaUser  } from 'react-icons/fa';
-import Login from './components/Login';
-import Register from './components/Register';
-import AddProduct from './components/AddProduct';
-import EditProduct from './components/EditProduct';
-import ViewProducts from './components/ViewProducts';
-import ViewCart from './components/ViewCart'; // Add ViewCart component
->>>>>>> 4e0ec056ca0ca0c1bac375f8f83dc65eb6a18e2d
 import 'bootstrap/dist/css/bootstrap.css';
 
 function Home() {
@@ -116,13 +104,8 @@ function App() {
               )}
             </Nav>
             <Nav className="ml-auto">
-<<<<<<< HEAD
               <Nav.Link as={Link} to="/login" onClick={() => setIsLoggedIn(false)}>
                 {isLoggedIn ? 'Logout' : 'Login'}
-=======
-              <Nav.Link as={Link} to="/login">
-                <FaUser  /> {isLoggedIn ? 'Logout' : 'Login'}
->>>>>>> 4e0ec056ca0ca0c1bac375f8f83dc65eb6a18e2d
               </Nav.Link>
             </Nav>
           </Navbar.Collapse>
@@ -131,7 +114,6 @@ function App() {
 
       <div className="container mt-4">
         <Routes>
-<<<<<<< HEAD
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
           <Route path="/register" element={<Register setIsLoggedIn={setIsLoggedIn} />} />
@@ -139,13 +121,6 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
           <Route path="/edit/:id" element={<EditProduct />} />
-=======
-          <Route path="/" element={<ViewProducts addToCart={addToCart} />} />
-          <Route path="/add" element={isLoggedIn ? <AddProduct /> : <Login toggleForm={toggleForm} setIsLoggedIn={setIsLoggedIn} />} />
-          <Route path="/edit/:id" element={isLoggedIn ? <EditProduct /> : <Login toggleForm={toggleForm} setIsLoggedIn={setIsLoggedIn} />} />
-          <Route path="/login" element={isLoginForm ? <Login toggleForm={toggleForm} setIsLoggedIn={setIsLoggedIn} /> : <Register toggleForm={toggleForm} setIsLoggedIn={setIsLoggedIn} />} />
-          <Route path="/cart" element={<ViewCart />} /> {/* New cart route */}
->>>>>>> 4e0ec056ca0ca0c1bac375f8f83dc65eb6a18e2d
         </Routes>
       </div>
     </Router>
