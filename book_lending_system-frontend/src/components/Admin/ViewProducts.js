@@ -10,8 +10,12 @@ function ViewProducts() {
   // Fetch products from the backend API
   useEffect(() => {
     const fetchProducts = async () => {
-      const response = await axios.get('http://localhost:8000/api/products');
-      setProducts(response.data);
+      try {
+        const response = await axios.get('http://localhost:8000/api/products');
+        setProducts(response.data);
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      }
     };
     fetchProducts();
   }, []);
@@ -27,7 +31,8 @@ function ViewProducts() {
       });
       alert('Product added to cart!');
     } catch (error) {
-      console.error('Error adding to cart:', error);
+      console.error('Error adding to cart:', error.response ? error.response.data : error.message);
+      alert('Failed to add product to cart. Please try again.');
     }
   };
 
@@ -39,6 +44,7 @@ function ViewProducts() {
       setProducts(products.filter((product) => product.id !== id));
     } catch (error) {
       console.error('Error deleting product:', error);
+      alert('Failed to delete product. Please try again.');
     }
   };
 
@@ -83,7 +89,7 @@ function ViewProducts() {
                   <Button variant="primary" className="me-2">
                     Edit
                   </Button>
-                </Link>
+                </Link> 
                 {/* Delete button */}
                 <Button onClick={() => handleDeleteProduct(product.id)} variant="danger">
                   Delete
