@@ -1,28 +1,39 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { Table, Button, Form } from "react-bootstrap";
-
+import React, { useState, useEffect } from 'react';
+import { Table, Button, Form } from 'react-bootstrap';
+import axios from 'axios';
 
 const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
-
+  const [cartCount, setCartCount] = useState(0); // Cart count
+  
   useEffect(() => {
     fetchCartItems();
+    fetchCartCount();
   }, []);
 
   const fetchCartItems = async () => {
     try {
-      const response = await axios.get('http://localhost:127.0.0.1:8000/api/cart');
+      const response = await axios.get('http://localhost:8000/api/cart');
       setCartItems(response.data);
     } catch (error) {
       console.error("Error fetching cart items:", error);
     }
   };
 
+  const fetchCartCount = async () => {
+    try {
+      const response = await axios.get('http://localhost:8000/api/cart/count');
+      setCartCount(response.data.count);
+    } catch (error) {
+      console.error("Error fetching cart count:", error);
+    }
+  };
+
   const handleUpdateQuantity = async (id, quantity) => {
     try {
-      await axios.put(`http://localhost:127.0.0.1:8000/api/cart/${id}`, { quantity });
-      fetchCartItems();
+      await axios.put(`http://localhost:8000/api/cart/update/${id}`, { quantity });
+      fetchCartItems(); // Refresh cart items after updating quantity
+      fetchCartCount(); // Update cart count after change
     } catch (error) {
       console.error("Error updating cart item:", error);
     }
@@ -30,8 +41,9 @@ const Cart = () => {
 
   const handleRemoveItem = async (id) => {
     try {
-      await axios.delete(`http://localhost:127.0.0.1:8000/api/cart/${id}`);
-      fetchCartItems();
+      await axios.delete(`http://localhost:8000/api/cart/remove/${id}`);
+      fetchCartItems(); // Refresh cart items after removal
+      fetchCartCount(); // Update cart count after removal
     } catch (error) {
       console.error("Error removing cart item:", error);
     }
@@ -58,13 +70,13 @@ const Cart = () => {
         <tbody>
           {cartItems.map((item) => (
             <tr key={item.id}>
-              <td>{item.name}</td>
+              <td>{item.description}</td>
               <td>
                 <Form.Control
                   type="number"
                   value={item.quantity}
                   onChange={(e) =>
-                    handleUpdateQuantity(item.id, e.target.value)
+                    handleUpdateQuantity(item.id, parseInt(e.target.value))
                   }
                 />
               </td>
@@ -83,6 +95,7 @@ const Cart = () => {
         </tbody>
       </Table>
       <h3>Grand Total: ${grandTotal.toFixed(2)}</h3>
+      <p>Items in Cart: {cartCount}</p> {/* Display Cart Count */}
     </div>
   );
 };

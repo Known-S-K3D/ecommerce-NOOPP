@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getCartCount } from './api/cart';
+import { getCartCount } from './api/cart'; // assuming getCartCount fetches the current count of cart items
 
 const CartCount = () => {
     const [cartCount, setCartCount] = useState(0);

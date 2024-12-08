@@ -15,11 +15,9 @@ Route::prefix('products')->group(function () {
 
 // Cart Routes
 Route::prefix('cart')->group(function () {
-    Route::get('/cart', [CartController::class, 'index']);
-
-    Route::get('/count', [CartController::class, 'getCartCount']); // Get cart count
-    Route::post('/add', [CartController::class, 'addToCart']); // Add an item to the cart
-    Route::delete('/remove/{id}', [CartController::class, 'removeFromCart']); // Remove item from cart
+    Route::get('/items', [CartController::class, 'index']);  // Get all cart items
+    Route::get('/count', [CartController::class, 'getCartCount']); // Get total count of items in the cart
+    Route::post('/add', [CartController::class, 'addToCart']); // Add item to cart
     Route::put('/update/{id}', [CartController::class, 'updateCart']); // Update cart item
-    
+    Route::delete('/remove/{id}', [CartController::class, 'removeFromCart']); // Remove item from cart
 });

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import ProductForm from "../components/ProductForm";
+import ProductForm from "./ProductForm";
 import { useParams, useNavigate } from "react-router-dom";
 import { Container, Card, Spinner } from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.css';
@@ -28,7 +28,7 @@ const EditProduct = () => {
   const handleUpdate = async (productData) => {
     try {
       await axios.put(`http://localhost:8000/api/products/${id}`, productData);
-      navigate("/"); // Redirect after update
+      navigate("/admin/dashboard"); // Redirect to Admin Dashboard after update
     } catch (error) {
       console.error("Error updating product:", error);
     }
