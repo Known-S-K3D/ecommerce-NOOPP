@@ -1,14 +1,23 @@
 <?php
 
-use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CartController;
 
-// Product Routes without middleware group
-Route::get('/products', [ProductController::class, 'index']); // Retrieve all products
-Route::get('/products/{id}', [ProductController::class, 'show']); // Retrieve a specific product by ID
-Route::post('/products', [ProductController::class, 'store']); // Add a new product
-Route::put('/products/{id}', [ProductController::class, 'update']); // Update a specific product by ID
-Route::delete('/products/{id}', [ProductController::class, 'destroy']); // Delete a specific product by ID
+// Product Routes
+Route::prefix('products')->group(function () {
+    Route::get('/', [ProductController::class, 'index']); // List all products
+    Route::get('/{id}', [ProductController::class, 'show']); // Show a specific product
+    Route::post('/', [ProductController::class, 'store']); // Add a new product
+    Route::put('/{id}', [ProductController::class, 'update']); // Update a product
+    Route::delete('/{id}', [ProductController::class, 'destroy']); // Delete a product
+});
 
-// Alternatively, you can keep using apiResource for brevity:
-Route::apiResource('products', ProductController::class);
+// Cart Routes
+Route::prefix('cart')->group(function () {
+    Route::get('/items', [CartController::class, 'index']);  // Get all cart items
+    Route::get('/count', [CartController::class, 'getCartCount']); // Get total count of items in the cart
+    Route::post('/add', [CartController::class, 'addToCart']); // Add item to cart
+    Route::put('/update/{id}', [CartController::class, 'updateCart']); // Update cart item
+    Route::delete('/remove/{id}', [CartController::class, 'removeFromCart']); // Remove item from cart
+});

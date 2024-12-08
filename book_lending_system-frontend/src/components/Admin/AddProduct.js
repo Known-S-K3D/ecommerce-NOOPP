@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Card, Button, Spinner, Form, Container } from "react-bootstrap";
+import 'bootstrap/dist/css/bootstrap.css';
 
 function AddProduct() {
   const [barcode, setBarcode] = useState("");
@@ -12,15 +13,12 @@ function AddProduct() {
   const [success, setSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  // Function to generate a random barcode
   const generateBarcode = () => {
-    return Math.floor(1000000000 + Math.random() * 9000000000).toString(); // 10-digit random number
+    return Math.floor(1000000000 + Math.random() * 9000000000).toString(); 
   };
 
-  // Automatically generate a barcode when the component mounts
   useEffect(() => {
-    const newBarcode = generateBarcode();
-    setBarcode(newBarcode);
+    setBarcode(generateBarcode());
   }, []);
 
   const handleSubmit = async (e) => {
@@ -37,12 +35,10 @@ function AddProduct() {
         category,
       });
       setSuccess(true);
-      // Clear form fields
       setDescription("");
       setPrice("");
       setQuantity("");
       setCategory("");
-      // Optionally generate a new barcode for the next product
       setBarcode(generateBarcode());
     } catch (error) {
       setError("Failed to add product. Please try again.");
@@ -64,7 +60,7 @@ function AddProduct() {
                 type="text"
                 placeholder="Barcode"
                 value={barcode}
-                readOnly // Make the barcode read-only
+                readOnly
               />
             </Form.Group>
 
@@ -101,7 +97,7 @@ function AddProduct() {
               />
             </Form.Group>
 
-            <Form.Group controlId="category" className="mb-2"> 
+            <Form.Group controlId="category" className="mb-2">
               <Form.Label>Category</Form.Label>
               <Form.Control
                 type="text"
@@ -113,9 +109,10 @@ function AddProduct() {
             </Form.Group>
 
             <Button variant="primary" className="mt-4 text-center" type="submit" disabled={isLoading}>
-                {isLoading ? <Spinner animation="border" size="sm" /> : "Add Product"}
+              {isLoading ? <Spinner animation="border" size="sm" /> : "Add Product"}
             </Button>
           </Form>
+
           {error && <Card.Text className="mt-3 text-danger">{error}</Card.Text>}
           {success && (
             <Card.Text className="mt-3 text-success">
