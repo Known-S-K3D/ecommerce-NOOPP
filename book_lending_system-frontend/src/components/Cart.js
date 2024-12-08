@@ -12,7 +12,7 @@ const Cart = () => {
 
   const fetchCartItems = async () => {
     try {
-      const response = await axios.get('http://localhost:127.0.0.1:8000/api/cart');
+      const response = await axios.get('http://localhost:8000/api/cart');
       setCartItems(response.data);
     } catch (error) {
       console.error("Error fetching cart items:", error);
@@ -21,7 +21,7 @@ const Cart = () => {
 
   const handleUpdateQuantity = async (id, quantity) => {
     try {
-      await axios.put(`http://localhost:127.0.0.1:8000/api/cart/${id}`, { quantity });
+      await axios.put(`http://localhost:8000/api/cart/${id}`, { quantity });
       fetchCartItems();
     } catch (error) {
       console.error("Error updating cart item:", error);
@@ -30,7 +30,7 @@ const Cart = () => {
 
   const handleRemoveItem = async (id) => {
     try {
-      await axios.delete(`http://localhost:127.0.0.1:8000/api/cart/${id}`);
+      await axios.delete(`http://localhost:8000/api/cart/${id}`);
       fetchCartItems();
     } catch (error) {
       console.error("Error removing cart item:", error);

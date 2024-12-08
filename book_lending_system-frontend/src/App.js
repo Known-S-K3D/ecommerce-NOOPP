@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import { Navbar, Nav, Container } from 'react-bootstrap';
-import { FaUser } from 'react-icons/fa';
+import { FaUser  } from 'react-icons/fa';
 import Login from './components/Login';
 import Register from './components/Register';
 import AddProduct from './components/AddProduct';
@@ -17,6 +17,10 @@ function App() {
 
   const toggleForm = (isLogin) => {
     setIsLoginForm(isLogin);
+  };
+
+  const addToCart = () => {
+    setCartCount(cartCount + 1); // Increment cart count
   };
 
   return (
@@ -37,7 +41,7 @@ function App() {
             </Nav>
             <Nav className="ml-auto">
               <Nav.Link as={Link} to="/login">
-                <FaUser /> {isLoggedIn ? 'Logout' : 'Login'}
+                <FaUser  /> {isLoggedIn ? 'Logout' : 'Login'}
               </Nav.Link>
             </Nav>
           </Navbar.Collapse>
@@ -46,7 +50,7 @@ function App() {
 
       <div className="container mt-4">
         <Routes>
-          <Route path="/" element={<ViewProducts />} />
+          <Route path="/" element={<ViewProducts addToCart={addToCart} />} />
           <Route path="/add" element={isLoggedIn ? <AddProduct /> : <Login toggleForm={toggleForm} setIsLoggedIn={setIsLoggedIn} />} />
           <Route path="/edit/:id" element={isLoggedIn ? <EditProduct /> : <Login toggleForm={toggleForm} setIsLoggedIn={setIsLoggedIn} />} />
           <Route path="/login" element={isLoginForm ? <Login toggleForm={toggleForm} setIsLoggedIn={setIsLoggedIn} /> : <Register toggleForm={toggleForm} setIsLoggedIn={setIsLoggedIn} />} />
