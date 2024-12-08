@@ -31,14 +31,10 @@ const Cart = () => {
 
   const handleUpdateQuantity = async (id, quantity) => {
     try {
-<<<<<<< HEAD:book_lending_system-frontend/src/components/Cart/Cart.js
       await axios.put(`http://localhost:8000/api/cart/update/${id}`, { quantity });
       fetchCartItems(); // Refresh cart items after updating quantity
       fetchCartCount(); // Update cart count after change
-=======
       await axios.put(`http://localhost:8000/api/cart/${id}`, { quantity });
-      fetchCartItems();
->>>>>>> 4e0ec056ca0ca0c1bac375f8f83dc65eb6a18e2d:book_lending_system-frontend/src/components/Cart.js
     } catch (error) {
       console.error("Error updating cart item:", error);
     }
@@ -46,14 +42,11 @@ const Cart = () => {
 
   const handleRemoveItem = async (id) => {
     try {
-<<<<<<< HEAD:book_lending_system-frontend/src/components/Cart/Cart.js
       await axios.delete(`http://localhost:8000/api/cart/remove/${id}`);
       fetchCartItems(); // Refresh cart items after removal
       fetchCartCount(); // Update cart count after removal
-=======
       await axios.delete(`http://localhost:8000/api/cart/${id}`);
       fetchCartItems();
->>>>>>> 4e0ec056ca0ca0c1bac375f8f83dc65eb6a18e2d:book_lending_system-frontend/src/components/Cart.js
     } catch (error) {
       console.error("Error removing cart item:", error);
     }

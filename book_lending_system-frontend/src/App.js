@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link, useNavigate } from 'react-router-dom';
 import { Navbar, Nav, Container, Card, Row, Col, Spinner, Button } from 'react-bootstrap';
@@ -34,10 +33,6 @@ function Home() {
   const handleBuyClick = (product) => {
     console.log('Redirecting to store with product:', product); // Debug log
     navigate('/store', { state: { product } }); // Pass product data to Store via state
-  };
-
-  const addToCart = () => {
-    setCartCount(cartCount + 1); // Increment cart count
   };
 
   return (
@@ -95,7 +90,7 @@ function App() {
           <Navbar.Brand as={Link} to="/">Product Management</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="ml-auto">
+            <Nav className="ms-auto">
               {isLoggedIn && <Nav.Link as={Link} to="/admin/dashboard">Admin Dashboard</Nav.Link>}
               {isLoggedIn && (
                 <Nav.Link as={Link} to="/cart">
@@ -103,7 +98,7 @@ function App() {
                 </Nav.Link>
               )}
             </Nav>
-            <Nav className="ml-auto">
+            <Nav className="ms-auto">
               <Nav.Link as={Link} to="/login" onClick={() => setIsLoggedIn(false)}>
                 {isLoggedIn ? 'Logout' : 'Login'}
               </Nav.Link>
