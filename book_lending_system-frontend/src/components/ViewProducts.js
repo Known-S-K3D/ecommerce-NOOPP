@@ -89,7 +89,7 @@ function ViewProducts() {
                   <Button variant="primary" className="me-2">
                     Edit
                   </Button>
-                </Link>
+                </Link> 
                 {/* Delete button */}
                 <Button onClick={() => handleDeleteProduct(product.id)} variant="danger">
                   Delete
